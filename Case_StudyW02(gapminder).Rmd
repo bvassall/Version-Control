@@ -1,0 +1,61 @@
+---
+title: "CASE STUDY TITLE"
+author: "YOUR NAME"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  html_document:  
+    keep_md: true
+    toc: true
+    toc_float: true
+    code_folding: hide
+    fig_height: 6
+    fig_width: 12
+    fig_align: 'center'
+---
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r load_libraries, include=FALSE}
+# Use this R-Chunk to load all your libraries!
+#install.packages("tidyverse") # run this line once in console to get package
+library(tidyverse)
+library(gapminder)
+library(dplyr)
+```
+
+```{r load_data}
+# Use this R-Chunk to import all your datasets!
+
+```
+
+## Background
+
+_This project uses the data from Hans Rosling. We will be creating a graphic_
+
+## Data Wrangling
+
+```{r tidy_data}
+# Use this R-Chunk to clean & wrangle your data!
+gapminder2 <- filter(gapminder, country != "Kuwait")
+```
+
+## Data Visualization
+
+```{r plot_data}
+# Use this R-Chunk to plot & visualize your data!
+p <- ggplot(data = gapminder2) +
+  geom_point(mapping = aes(x = lifeExp, y = gdpPercap, size = pop/100000, color = continent)) +
+  facet_wrap(~year, nrow = 1) +
+  scale_y_continuous(trans = "sqrt") +
+  theme_bw() 
+  
+p + labs(x = "Life Expectancy") + labs(y = "GDP per capita") + labs(size = "Population (100K)")
+
+
+ggsave("gapminder.png")
+
+```
+
+## Conclusions
